@@ -13,9 +13,7 @@ with open("./data.jsonl", "r") as json_file:
             root = BeautifulSoup(json.loads(line))
             for provider in root.find_all("p"):
                 data: dict[str, str] = {
-                    attr.attrs["id"][len(ID_PREFIX) : -(len(ID_SUFFIX) + 1)]: str(
-                        attr.string
-                    )
+                    attr.attrs["id"][len(ID_PREFIX) :].split("_")[0]: str(attr.string)
                     for attr in provider.find_all(
                         "span", id=lambda x: x and x.startswith(ID_PREFIX)
                     )
